@@ -1,3 +1,5 @@
+const express = require('express');
+
 const frutasRouter = require('./frutas_router');
 const piratesRouter = require('./pirates_router');
 const usersRouter = require('./users_router');
@@ -5,9 +7,11 @@ const usersRouter = require('./users_router');
 
 
 function routerApi(app){
-  app.use('/frutas', frutasRouter);
-  app.use('/pirates', piratesRouter);
-  app.use('/users', usersRouter);
+  const router = express.Router();
+  app.use('/api/v1', router);
+  router.use('/frutas', frutasRouter);
+  router.use('/pirates', piratesRouter);
+  router.use('/users', usersRouter);
 
 }
 
