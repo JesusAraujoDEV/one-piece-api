@@ -4,40 +4,46 @@ const service = new FrutasService();
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const frutas = service.find();
+router.get('/', async (req, res) => {
+  const frutas = await service.find();
   res.json(frutas);
 });
 
-router.get('/:id' , (req, res) => {
+router.get('/:id' , async (req, res) => {
   const { id } = req.params
-  const fruta = service.findOne(id);
+  const fruta = await service.findOne(id);
   res.json(fruta);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const body = req.body;
-  const fruta = service.create(body);
+  const fruta = await service.create(body);
   res.status(201).json({
     message: 'created',
     data: fruta
   })
 });
 
-router.patch('/:id', (req, res) => {
-  const { id } = req.params
-  const body = req.body;
-  const fruta = service.update(id, body);
-  res.json({
-    message: 'Updates',
-    data: fruta
-  })
-})
+router.patch('/:id', async (req, res) => {
+  try{
+    const { id } = req.params
+    const body = req.body;
+    const fruta = await service.update(id, body);
+    res.json({
+      message: 'Updates',
+      data: fruta
+    })
+  } catch (error){
+    res.status(404).json({
+      message: error.message
+    })
+  }
+});
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params
 
-  res.json(service.delete(id));
-})
+  res.json(await service.delete(id));
+});
 
 module.exports = router;

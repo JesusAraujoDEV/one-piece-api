@@ -23,7 +23,7 @@ class FrutasService {
     }
   }
 
-  create(data){
+  async create(data){
     const newFruta = {
       id: this.frutas.length + 1,
       ...data
@@ -33,10 +33,14 @@ class FrutasService {
   }
 
   find(){
-    return this.frutas;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.frutas);
+      }, 2000);
+    });
   }
 
-  findOne(id){
+  async findOne(id){
     console.log(id);
     const resultado = this.frutas.find(item => Number(item.id) === Number(id));
 
@@ -44,7 +48,7 @@ class FrutasService {
 
   }
 
-  update(id, changes){
+  async update(id, changes){
     const index = this.frutas.findIndex(item => Number(item.id) === Number(id));
     if(index === -1){
       throw new Error('Fruta no encontrada');
@@ -57,7 +61,7 @@ class FrutasService {
     return this.frutas[index];
   }
 
-  delete(id){
+  async delete(id){
     const index = this.frutas.findIndex(item => Number(item.id) === Number(id));
     if(index === -1){
       throw new Error('Fruta no encontrada');
