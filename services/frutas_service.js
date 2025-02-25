@@ -42,8 +42,7 @@ class FrutasService {
 
   async findOne(id){
     console.log(id);
-    const resultado = this.frutas.find(item => Number(item.id) === Number(id));
-
+    const name = this.getTotal();
     return this.frutas.find(item => Number(item.id) === Number(id));
 
   }

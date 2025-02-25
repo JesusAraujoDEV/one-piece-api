@@ -9,10 +9,14 @@ router.get('/', async (req, res) => {
   res.json(frutas);
 });
 
-router.get('/:id' , async (req, res) => {
-  const { id } = req.params
-  const fruta = await service.findOne(id);
-  res.json(fruta);
+router.get('/:id' , async (req, res, next) => {
+  try{
+    const { id } = req.params
+    const fruta = await service.findOne(id);
+    res.json(fruta);
+  } catch(error){
+    next(error);
+  }
 });
 
 router.post('/', async (req, res) => {
