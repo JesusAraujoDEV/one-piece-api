@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
   })
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   try{
     const { id } = req.params
     const body = req.body;
@@ -38,9 +38,7 @@ router.patch('/:id', async (req, res) => {
       data: fruta
     })
   } catch (error){
-    res.status(404).json({
-      message: error.message
-    })
+    next(error);
   }
 });
 

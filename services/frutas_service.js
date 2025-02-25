@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+const boom = require('@hapi/boom');
 
 class FrutasService {
 
@@ -17,7 +18,8 @@ class FrutasService {
         id: i+1,
         name: faker.food.fruit(),
         type: tipos_fruta[Math.floor(Math.random() * tipos_fruta.length)],
-        price: parseInt(faker.number.int({ min: 1000000, max: 4000000000 }))
+        price: parseInt(faker.number.int({ min: 1000000, max: 4000000000 })),
+        isBlock: faker.datatype.boolean()
       }
       )
     }
@@ -42,15 +44,21 @@ class FrutasService {
 
   async findOne(id){
     console.log(id);
-    const name = this.getTotal();
-    return this.frutas.find(item => Number(item.id) === Number(id));
+    const fruta = this.frutas.find(item => Number(item.id) === Number(id));
+    if (!fruta){
+      throw boom.notFound('Fruta no encontrada');
+    }
+    if(fruta.isBlock){
+      throw boom.conflict('Fruta bloqueada');
+    }
+    return fruta;
 
   }
 
   async update(id, changes){
     const index = this.frutas.findIndex(item => Number(item.id) === Number(id));
     if(index === -1){
-      throw new Error('Fruta no encontrada');
+      throw boom.notFound('Fruta no encontrada');
     }
     const fruta = this.frutas[index];
     this.frutas[index] = {
@@ -63,7 +71,7 @@ class FrutasService {
   async delete(id){
     const index = this.frutas.findIndex(item => Number(item.id) === Number(id));
     if(index === -1){
-      throw new Error('Fruta no encontrada');
+      throw boom.notFound('Fruta no encontrada');
     }
     this.frutas.splice(index, 1);
     return { id };
