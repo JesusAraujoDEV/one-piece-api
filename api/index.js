@@ -1,11 +1,10 @@
 const express = require('express');
 const routerApi = require('./routes');
-const swaggerDocs = require('./swagger');
 const cors = require('cors');
 
 const { logErrors, errorHandler, boomErrorHandler} = require('./middlewares/error_handler');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -21,8 +20,8 @@ const options = {
 }
 app.use(cors(options));
 
-app.get('/', (req, res) => {
-  res.send('HOLA MUNDOOOO, primer get en express')
+app.get('/api', (req, res) => {
+  res.send('HOLA MUNDOOOO, primer server en express')
 });
 
 routerApi(app);
@@ -31,8 +30,6 @@ app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-// Swagger
-swaggerDocs(app, port);
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
