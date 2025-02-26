@@ -12,26 +12,44 @@ router.get('/', async (req, res) => {
   res.json(frutas);
 });
 
-router.get('/:id' , async (req, res, next) => {
-  try{
-    const { id } = req.params
-    const fruta = await service.findOne(id);
-    res.json(fruta);
-  } catch(error){
-    next(error);
+router.get('/:id' ,
+  validatorHandler(getFrutaSchema, 'params'),
+  async (req, res, next) => {
+    try{
+      const { id } = req.params
+      const fruta = await service.findOne(id);
+      res.json(fruta);
+    } catch(error){
+      next(error);
+    }
   }
-});
+);
 
-router.post('/', async (req, res) => {
-  const body = req.body;
-  const fruta = await service.create(body);
-  res.status(201).json({
-    message: 'created',
-    data: fruta
-  })
-});
+router.post('/',
+  [
+    validatorHandler(createFrutaSchema, 'body')
+  ],
+  async (req, res, next) => {
+    try{
+      const body = req.body;
+      const fruta = await service.create(body);
+      res.status(201).json({
+        message: 'created',
+        data: fruta
+      })
+    }
+    catch(error){
+      next(error);
+    }
+  }
+);
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id',
+  [
+    validatorHandler(getFrutaSchema, 'params'),
+    validatorHandler(updateFrutaSchema, 'body')
+  ],
+  async (req, res, next) => {
   try{
     const { id } = req.params
     const body = req.body;
