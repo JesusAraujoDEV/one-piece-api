@@ -64,8 +64,14 @@ router.get('/', async (req, res) => {
  *               properties:
  *                 id:
  *                   type: integer
- *                 nombre:
+ *                 name:
  *                   type: string
+ *                 type:
+ *                   type: string
+ *                 price:
+ *                   type: integer
+ *                 isBlock:
+ *                   type: boolean
  *       404:
  *         description: Fruta no encontrada
  */
@@ -101,7 +107,7 @@ router.get('/:id' ,
  *               type:
  *                 type: string
  *                 enum: [paramecia, logia, zoan]
- *                 example: paramecia
+ *                 example: paramesia
  *               price:
  *                 type: number
  *                 example: 5000000
@@ -150,8 +156,16 @@ router.post('/',
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               name:
  *                 type: string
+ *                 example: Gomu Gomu no Mi
+ *               type:
+ *                 type: string
+ *                 enum: [paramecia, logia, zoan]
+ *                 example: paramesia
+ *               price:
+ *                 type: number
+ *                 example: 5000000
  *     responses:
  *       200:
  *         description: Fruta actualizada
