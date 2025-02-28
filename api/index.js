@@ -20,6 +20,8 @@ app.use(express.json());
 //   }
 // }
 // app.use(cors(options));
+app.use(cors()); // Esto permite CORS desde cualquier origen
+
 
 app.get('/api', (req, res) => {
   res.send('HOLA MUNDOOOO, primer server en express')
