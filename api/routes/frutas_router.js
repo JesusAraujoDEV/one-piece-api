@@ -95,8 +95,16 @@ router.get('/:id' ,
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               name:
  *                 type: string
+ *                 example: Gomu Gomu no Mi
+ *               type:
+ *                 type: string
+ *                 enum: [paramecia, logia, zoan]
+ *                 example: paramecia
+ *               price:
+ *                 type: number
+ *                 example: 5000000
  *     responses:
  *       201:
  *         description: Fruta creada
