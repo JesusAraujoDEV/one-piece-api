@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const whitelist = ['http://127.0.0.1:5500'];
+const whitelist = ['http://127.0.0.1:5500', 'https://web-production-fca2.up.railway.app'];
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin){
