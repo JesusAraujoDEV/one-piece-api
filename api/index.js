@@ -1,6 +1,7 @@
 const express = require('express');
 const routerApi = require('./routes');
 const cors = require('cors');
+const swaggerDocs = require('./swagger');
 
 const { logErrors, errorHandler, boomErrorHandler} = require('./middlewares/error_handler');
 const app = express();
@@ -30,6 +31,7 @@ app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
+swaggerDocs(app, port);
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
