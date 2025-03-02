@@ -2,6 +2,7 @@
 services:
   postgres:
     image: postgres:13
+    container_name: onepiece_api_db
     environment:
       - POSTGRES_DB=onepiece_api
       - POSTGRES_USER=jesus
@@ -10,3 +11,11 @@ services:
       - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=ROOT
+    ports:
+      - 5050:80
