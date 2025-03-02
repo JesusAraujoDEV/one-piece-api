@@ -1,0 +1,12 @@
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=onepiece_api
+      - POSTGRES_USER=jesus
+      - POSTGRES_PASSWORD=root
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
