@@ -1,18 +1,13 @@
 const { faker } = require('@faker-js/faker');
 const boom = require('@hapi/boom');
 
-const pool = require('../libs/postgres_pool');
+const sequelize = require('./../libs/sequelize');
 
 class FrutasService {
 
   constructor(){
     this.frutas = [];
     this.generate();
-    this.pool = pool;
-    this.pool.on('error', (err) => {
-      console.error('Unexpected error on idle client', err);
-    }
-    );
   }
 
   generate(){
@@ -43,8 +38,10 @@ class FrutasService {
 
   async find(){
     const query = 'SELECT * FROM task';
-    const rsta = await(this.pool.query(query));
-    return rsta.rows;
+    const [data] = await sequelize.query(query);
+    return {
+      data
+    };
   }
 
   async findOne(id){
