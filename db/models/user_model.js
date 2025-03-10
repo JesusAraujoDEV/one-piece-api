@@ -1,4 +1,4 @@
-const { allow } = require('joi');
+const { password } = require('pg/lib/defaults');
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const USER_TABLE = 'users';
@@ -14,6 +14,10 @@ const UserSchema = {
     allowNull: false,
     type: DataTypes.STRING,
     unique: true,
+  },
+  password: {
+    allowNull: false,
+    type: DataTypes.STRING
   },
   createdAt: {
     allowNull: false,
