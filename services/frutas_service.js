@@ -37,11 +37,7 @@ class FrutasService {
   }
 
   async find(){
-    const query = 'SELECT * FROM task';
-    const [data] = await sequelize.query(query);
-    return {
-      data
-    };
+    return this.frutas;
   }
 
   async findOne(id){
@@ -54,7 +50,6 @@ class FrutasService {
       throw boom.conflict('Fruta bloqueada');
     }
     return fruta;
-
   }
 
   async update(id, changes){

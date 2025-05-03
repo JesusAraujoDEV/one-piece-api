@@ -4,7 +4,7 @@ const routerApi = require('./routes');
 const cors = require('cors');
 const swaggerDocs = require('./swagger');
 
-const { logErrors, errorHandler, boomErrorHandler} = require('./middlewares/error_handler');
+const { logErrors, errorHandler, ormErrorHandler, boomErrorHandler} = require('./middlewares/error_handler');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -29,6 +29,7 @@ app.get('/api', (req, res) => {
 routerApi(app);
 
 app.use(logErrors);
+app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
