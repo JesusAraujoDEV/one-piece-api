@@ -10,7 +10,7 @@ const CategorySchema = {
         type: DataTypes.INTEGER,
     },
     name: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         unique: true,
         allowNull: false,
     },
@@ -27,7 +27,7 @@ const CategorySchema = {
 }
 
 class Category extends Model {
-    static associate() {
+    static associate(models) {
         this.hasMany(models.Product,  {
             as: 'products',
             foreignKey: 'categoryId',
@@ -39,7 +39,7 @@ class Category extends Model {
             sequelize,
             tableName: CATEGORY_TABLE,
             modelName: 'Category',
-            timeStamps: false
+            timestamps: false
         }
     }
 }

@@ -12,7 +12,7 @@ const ProductSchema = {
         type: DataTypes.INTEGER,
     },
     name: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     image: {
@@ -47,7 +47,7 @@ const ProductSchema = {
 }
 
 class Product extends Model {
-    static associate() {
+    static associate(models) {
         this.belongsTo(models.Category, {as: 'category' });
     }
 
@@ -56,7 +56,7 @@ class Product extends Model {
             sequelize,
             tableName: PRODUCT_TABLE,
             modelName: 'Product',
-            timeStamps: false
+            timestamps: false
         }
     }
 }

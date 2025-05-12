@@ -12,7 +12,7 @@ const createProductSchema = Joi.object({
   price: price.required(),
   description: description.required(),
   image: image.required(),
-  categoryId: categoryId.required(),
+  categoryId: categoryId.required()
 });
 
 const updateProductSchema = Joi.object({
@@ -20,7 +20,7 @@ const updateProductSchema = Joi.object({
   price: price,
   image: image,
   description: description,
-  categoryId
+  categoryId: categoryId
 });
 
 const getProductSchema = Joi.object({
