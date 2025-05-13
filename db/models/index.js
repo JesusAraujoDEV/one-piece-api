@@ -4,6 +4,7 @@ const { Category, CategorySchema } = require('./category_model');
 const { Product, ProductSchema } = require('./product_model');
 const { Order, OrderSchema} = require('./order_model');
 const { serverUnavailable } = require('@hapi/boom');
+const { OrderProduct, OrderProductSchema } = require('./order-product_model');
 
 
 function setupModels(sequelize){
@@ -12,6 +13,7 @@ function setupModels(sequelize){
   Category.init(CategorySchema, Category.config(sequelize));
   Product.init(ProductSchema, Product.config(sequelize));
   Order.init(OrderSchema, Order.config(sequelize));
+  OrderProduct.init(OrderProductSchema, OrderProduct.config(sequelize));
   
 
   User.associate(sequelize.models);
