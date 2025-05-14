@@ -26,6 +26,10 @@ app.get('/api', (req, res) => {
   res.send('HOLA MUNDOOOO, primer server en express')
 });
 
+app.get('/', (req, res) => {
+  res.send('HOLA MUNDOOOO, primer server en express')
+});
+
 routerApi(app);
 
 app.use(logErrors);
