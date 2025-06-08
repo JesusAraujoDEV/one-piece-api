@@ -5,6 +5,7 @@ const cors = require('cors');
 const swaggerDocs = require('./swagger');
 
 const { logErrors, errorHandler, ormErrorHandler, boomErrorHandler} = require('./middlewares/error_handler');
+const { checkApiKey } = require('./middlewares/auth_handler');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -22,7 +23,7 @@ app.use(express.json());
 // }
 // app.use(cors(options));
 
-app.get('/api', (req, res) => {
+app.get('/super-ruta', checkApiKey, (req, res) => {
   res.send('HOLA MUNDOOOO, primer server en express')
 });
 

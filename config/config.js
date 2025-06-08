@@ -5,6 +5,7 @@ const config = {
   port: process.env.PORT || 3000,
   isProd: process.env.NODE_ENV === 'production',
   db_url: process.env.DATABASE_URL,
+  apiKey: process.env.API_KEY,
   
   // PostgreSQL Configuration
   postgres: {
