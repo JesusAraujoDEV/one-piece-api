@@ -23,6 +23,8 @@ app.use(express.json());
 // }
 // app.use(cors(options));
 
+require('./utils/auth');
+
 app.get('/super-ruta', checkApiKey, (req, res) => {
   res.send('HOLA MUNDOOOO, primer server en express')
 });
