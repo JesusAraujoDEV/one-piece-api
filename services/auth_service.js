@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const { config } = require('../config/config');
+const { password } = require('pg/lib/defaults');
 
 const service = new UsersService();
 
@@ -19,6 +20,7 @@ class AuthService{
             throw boom.unauthorized();
         }
         delete user.dataValues.password;
+        //delete user.dataValues.recoveryToken;
         return user;
     }
 
@@ -47,7 +49,7 @@ class AuthService{
         const token = jwt.sign(payload, config.jwtSecret, {expiresIn: '15min'}); 
         const link = `http://myfrontend.com/recovey?token=${token}`;
 
-        await service.update(user.id, {recoveryToken: token})
+        await service.update(user.id, {recoveryToken: token});
 
         const mail = {
                 from: process.env.EMAIL_TESTING,        // Remitente: Tu correo de Gmail
@@ -58,6 +60,25 @@ class AuthService{
 
         const rta = await this.sendMail(mail);
         return rta;
+    }
+
+    async changePassword(token, newPassword){
+        try{
+            const payload = jwt.verify(token, config.jwtSecret);
+            const user = await service.findOne(payload.sub);
+            if(user.recoveryToken !== token){
+                throw boom.unauthorized();
+            }
+            const hash = await bcrypt.hash(newPassword, 10);
+            await service.update(user.id, {
+                recoveryToken: null,
+                password: hash
+            });
+            return { message: 'password changed!' }
+        }
+        catch{
+            throw boom.unauthorized();
+        }
     }
 
     async sendMail(infoMail){
