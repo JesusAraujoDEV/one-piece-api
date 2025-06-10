@@ -6,9 +6,9 @@ const options = {
     secretOrKey: config.jwtSecret
 }
 
-const JwtStrategy = new Strategy(options, (payload, donde) => 
+const JwtStrategy = new Strategy(options, (payload, done) => 
 {
-    return donde(null, payload);
+    return done(null, payload);
 });
 
 module.exports = JwtStrategy

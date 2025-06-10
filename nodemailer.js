@@ -11,14 +11,6 @@ async function sendMail() {
     host: "smtp.gmail.com", // ✨ Cambiado a host de Gmail
     secure: true,           // ✨ true para puerto 465 (SSL/TLS)
     port: 465,              // ✨ Puerto 465 para SSL/TLS con Gmail
-
-    // Si tuvieras que usar el puerto 587 (STARTTLS), la configuración sería:
-    // port: 587,
-    // secure: false, // false para STARTTLS
-    // tls: {
-    //   rejectUnauthorized: false // Solo si es estrictamente necesario y entiendes el riesgo
-    // }
-
     auth: {
       user: process.env.EMAIL_TESTING, // Tu dirección de correo de Gmail
       pass: process.env.PASSWORD_APP  // ✨ Tu Contraseña de Aplicación de Gmail
